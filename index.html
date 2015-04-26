@@ -1,12 +1,39 @@
-<!doctype html>
-<html ng-app>
-  <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-  </head>
-  <body>
-    <div>
-    	<h1>Hello, {{ yourName }}!</h1>
-    	<input type="text" ng-model="yourName" placeholder="Enter a name here">
-    </div>
-  </body>
+<!DOCTYPE html>
+<html>
+	<head>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	    <script src="app.js"></script>
+	    <script type="text/javascript" src="http://platform.linkedin.com/in.js">
+			api_key:    78y9xqwiwdbsbz
+			onLoad:     frameworkLoaded
+			authorize:  false
+		</script>
+	</head>
+	<body>
+		<div class="container" id="container">
+			<div class="page-header">
+	        	<h1>Virtual Business Cards</h1>
+	      	</div>
+	      	<button type="button" class="btn btn-primary" onclick="logInUser();">Log In</button>
+	      	<button type="button" class="btn btn-info" onclick="getInfo();">Display Info</button>
+
+			<h4>First Name</h4>
+			<p id="firstName"></p>
+			<h4>Last Name</h4>
+			<p id="lastName"></p>
+			<h4>Company</h4>
+			<p id="company"></p>
+			<h4>Title</h4>
+			<p id="title"></p>
+			<h4>Skills</h4>
+			<p id="skills"></p>
+			<h4>Location</h4>
+			<p id="location"></p>
+			<h4>Image</h4>
+			<p id="image"></p>
+		</div>
+	</body>
 </html>
