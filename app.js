@@ -13,15 +13,29 @@ function userLoggedIn() {
 }
 
 function getInfo() {
-	IN.API.Profile("me")
-		.fields(["firstName","headline"])
-	    .result(function(result) {
-	    	console.log(JSON.stringify(result));
-	    	displayInfo(result);
-		});
+	if (!IN.User.isAuthorized()){
+		alert("Please log in first");
+	} else {
+		IN.API.Profile("me")
+			.fields(["firstName","lastName", "location:(name)", "skills:(skill:(name))", "picture-url"])
+		    .result(function(result) {
+		    	console.log(JSON.stringify(result));
+		    	displayInfo(result);
+			});
+	}
 }
 
 function displayInfo(data) {
 	console.log("Displaying info..");
-	document.getElementById("firstName").innerHTML = data.values[0].firstName;
+	document.getElementById("name").innerHTML = data.values[0].firstName + " " + data.values[0].lastName;
+	document.getElementById("title").innerHTML = "";
+	document.getElementById("company").innerHTML = "";
+	//Display up to three skills
+	for (var i=0; i<3; i++){
+		if (data.values[0].skills.values[i].skill.name != undefined){
+			document.getElementById("skills").innerHTML += data.values[0].skills.values[i].skill.name + " ";
+		}
+	}
+	document.getElementById("location").innerHTML = data.values[0].location.name;
+	document.getElementById("image").innerHTML = "<img src=\"" + data.values[0].pictureUrl+ "\" alt=\"user's image\">";
 }
