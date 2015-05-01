@@ -1,3 +1,13 @@
+var userInfo = {
+	"name": undefined,
+	"position": undefined,
+	"skills": undefined,
+	"profile": undefined,
+	"email": undefined,
+	"location": undefined,
+	"image": undefined
+}
+
 function frameworkLoaded(){
 	console.log("LinkedIn framework loaded");
 }
@@ -29,7 +39,6 @@ function getInfo() {
 
 function displayInfo(data) {
 	console.log("Displaying info..");
-	//document.getElementById("name").innerHTML = data.values[0].firstName + " " + data.values[0].lastName;
 	document.getElementById("name").value = data.values[0].firstName + " " + data.values[0].lastName;
 	document.getElementById("position").value = data.values[0].positions.values[0].title + " at " + data.values[0].positions.values[0].company.name;
 	
@@ -37,11 +46,39 @@ function displayInfo(data) {
 	document.getElementById("skills").value = "";
 	for (var i=0; i<3; i++){
 		if (data.values[0].skills.values[i].skill.name != undefined){
-			document.getElementById("skills").value += data.values[0].skills.values[i].skill.name + " ";
+			if (i == 2){
+				document.getElementById("skills").value += data.values[0].skills.values[i].skill.name + " ";
+			} else {
+				document.getElementById("skills").value += data.values[0].skills.values[i].skill.name + ", ";
+			}
 		}
 	}
 	document.getElementById("profile").value = data.values[0].publicProfileUrl;
 	document.getElementById("email").value = data.values[0].emailAddress;
 	document.getElementById("location").value = data.values[0].location.name;
 	document.getElementById("image").innerHTML = "<img src=\"" + data.values[0].pictureUrl+ "\" alt=\"user's image\" style=\"float:right\">";
+	
+	saveData();
 }
+
+function saveData(){
+	console.log("Saving data..");
+	userInfo.name = document.getElementById("name").value;
+	userInfo.position = document.getElementById("position").value;
+	userInfo.skills = document.getElementById("skills").value;
+	userInfo.profile = document.getElementById("profile").value;
+	userInfo.email = document.getElementById("email").value;
+	userInfo.location = document.getElementById("location").value;
+	userInfo.image = document.getElementById("image").src;
+}
+
+function generateCard(){
+	document.getElementById("cardName").innerHTML = userInfo.name;
+	document.getElementById("cardPosition").innerHTML = userInfo.position;
+	document.getElementById("cardSkills").innerHTML = userInfo.skills;
+	document.getElementById("cardProfile").innerHTML = userInfo.profile;
+	document.getElementById("cardEmail").innerHTML = userInfo.email;
+	document.getElementById("cardLocation").innerHTML = userInfo.location;
+	//document.getElementById("cardImage").innerHTML = "<img src=\"" + userInfo.image + "\" alt=\"user's image\" style=\"float:right\">";
+}
+

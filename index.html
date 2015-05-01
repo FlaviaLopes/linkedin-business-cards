@@ -11,6 +11,7 @@
 			onLoad:     frameworkLoaded
 			authorize:  false
 		</script>
+		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
 		<div class="container" id="container">
@@ -18,29 +19,36 @@
 	        	<h1>Virtual Business Cards</h1>
 	      	</div>
 	      	<div class="row">
-		      	<div class="col-sm-3">
+		      	<div class="col-sm-7">
 			      	<button type="button" class="btn btn-primary" onclick="logInUser();">Log In</button>
 			      	<button type="button" class="btn btn-info" onclick="getInfo();">Display Info</button>
+			      	<button type="button" class="btn btn-success" onclick="generateCard();">Generate Card</button>
+			      	<div id="card" class="row">
+			      		<div class="col-sm-8">
+			      			<p id="cardName"></p>
+			      			<p id="cardPosition"></p>
+			      			<p id="cardLocation"></p>
+			      			<p id="cardSkills"></p>
+			      			<p id="cardProfile"></p>
+			      			<p id="cardEmail"></p>
+			      		</div>
+			      		<div class="col-sm-4" style="text-align:right">
+			      			<p id="cardImage"></p>
+			      		</div>
+		    		</div>
 		      	</div>
-		      	<div class="col-sm-9">
-		      		<div class="row">
-			      		<div class="col-sm-6">
-
-			      			<form role="form">
-						    	<div class="form-group">
-						      		<input type="text" class="form-control" id="name" placeholder="Name">
-						      		<input type="text" class="form-control" id="position" placeholder="Position">
-						      		<input type="text" class="form-control" id="location" placeholder="Location">
-						      		<input type="text" class="form-control" id="skills" placeholder="Skills">
-						      		<input type="text" class="form-control" id="profile" placeholder="LinkedIn">
-						      		<input type="text" class="form-control" id="email" placeholder="Email">
-						    	</div>
-						  	</form>
-				      	</div>
-				      	<div class="col-sm-6" style="text-align:right">
-				      		<p id="image"></p>
-				      	</div>
-		      		</div>
+		      	<div class="col-sm-5">
+	      			<form role="form">
+				    	<div class="form-group">
+				      		<input type="text" class="form-control" id="name" placeholder="Name">
+				      		<input type="text" class="form-control" id="position" placeholder="Position">
+				      		<input type="text" class="form-control" id="location" placeholder="Location">
+				      		<input type="text" class="form-control" id="skills" placeholder="Skills">
+				      		<input type="text" class="form-control" id="profile" placeholder="LinkedIn">
+				      		<input type="text" class="form-control" id="email" placeholder="Email">
+				    	</div>
+				  	</form>
+		      		<p id="image"></p>
 		      	</div>
 		    </div>
 		</div>
