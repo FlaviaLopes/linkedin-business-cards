@@ -58,6 +58,7 @@ function displayInfo(data) {
 	document.getElementById("location").value = data.values[0].location.name;
 	document.getElementById("image").innerHTML = "<img src=\"" + data.values[0].pictureUrl+ "\" alt=\"user's image\" style=\"float:right\">";
 	
+	userInfo.image = data.values[0].pictureUrl;
 	saveData();
 }
 
@@ -69,7 +70,6 @@ function saveData(){
 	userInfo.profile = document.getElementById("profile").value;
 	userInfo.email = document.getElementById("email").value;
 	userInfo.location = document.getElementById("location").value;
-	userInfo.image = document.getElementById("image").src;
 }
 
 function generateCard(){
@@ -79,6 +79,6 @@ function generateCard(){
 	document.getElementById("cardProfile").innerHTML = userInfo.profile;
 	document.getElementById("cardEmail").innerHTML = userInfo.email;
 	document.getElementById("cardLocation").innerHTML = userInfo.location;
-	//document.getElementById("cardImage").innerHTML = "<img src=\"" + userInfo.image + "\" alt=\"user's image\" style=\"float:right\">";
+	document.getElementById("cardImage").innerHTML = "<img src=\"" + userInfo.image + "\" alt=\"card image\" style=\"float:right\">";
 }
 
