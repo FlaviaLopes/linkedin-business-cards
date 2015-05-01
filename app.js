@@ -73,6 +73,8 @@ function saveData(){
 }
 
 function generateCard(){
+	saveData();
+
 	document.getElementById("cardName").innerHTML = userInfo.name;
 	document.getElementById("cardPosition").innerHTML = userInfo.position;
 	document.getElementById("cardSkills").innerHTML = userInfo.skills;
