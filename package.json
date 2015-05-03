@@ -1,0 +1,19 @@
+{
+  "name": "linkedin-business-cards",
+  "version": "0.1.0",
+  "description": "virtual business cards using linkedin",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mguida22/linkedin-business-cards"
+  },
+  "author": "Michael Guida <michael.guida@colorado.edu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mguida22/linkedin-business-cards/issues"
+  },
+  "homepage": "https://github.com/mguida22/linkedin-business-cards"
+}

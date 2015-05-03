@@ -6,7 +6,7 @@ var userInfo = {
 	"email": undefined,
 	"location": undefined,
 	"image": undefined
-}
+};
 
 function frameworkLoaded(){
 	console.log("LinkedIn framework loaded");
