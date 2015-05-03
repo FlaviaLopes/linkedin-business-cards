@@ -2,7 +2,10 @@
   "name": "linkedin-business-cards",
   "version": "0.1.0",
   "description": "virtual business cards using linkedin",
-  "main": "app.js",
+  "main": "index.js",
+  "dependencies": {
+    "express": "~4.9.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
