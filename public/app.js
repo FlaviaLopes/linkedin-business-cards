@@ -1,3 +1,12 @@
+socket.on('event', function (data) {
+	//do something with data here 
+});
+
+//send stuff to server here
+//socket.emit('data', data;
+
+
+//Local storage of info
 var userInfo = {
 	"name": undefined,
 	"position": undefined,
