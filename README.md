@@ -2,8 +2,18 @@
 
 Virtual business cards using LinkedIn.
 
-## Features
+## Running the Project
 
-- Pull information from users LinkedIn
-- Manual editing/addition of information
-- Ability to share cards with LinkedIn Connections and via Email
+You can view the project live at http://virtual-business-cards.herokuapp.com or run it locally on your computer.
+
+To run locally, use the following commands:
+
+```
+$ git clone https://github.com/mguida22/linkedin-business-cards.git
+$ npm install
+$ node index.js
+```
+
+Then navigate to `http://localhost:5000/` to view the project
+
+> Sharing user profiles is not currently working on Heroku
