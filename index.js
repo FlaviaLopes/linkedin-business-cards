@@ -3,18 +3,22 @@ var	express = require('express'),
 	app = express(),
 	server = http.createServer(app),
 	WebSocketServer = require('ws').Server,
-	pg = require('pg'),
-	connected = false;
+	pg = require('pg');
+
+var connected = false,
+	userId = 1;
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(request, response) {
-  response.send(__dirname + '/public/index.html');
-});
-
 server.listen(app.get('port'), function(){
 	console.log("Express server listening on port " + server.address().port);
+});
+
+app.get('/user', function(request, response) {
+	userId = request.query.id;
+	console.log('id: ' + userId);
+	response.redirect('/');
 });
 
 var wss = new WebSocketServer({server: server});
@@ -37,34 +41,15 @@ wss.on("connection", function(ws) {
 				    console.log('DB:');
 				    console.log(result.rows);
 				});
-			} if (message.substring(0,7) == 'getUser'){
-				var myId = message.substring(8, 12);
-				console.log(myId);
-				client.query('SELECT person FROM cards', function(err, result) {
+			} if (message == 'getUser'){
+
+				client.query('SELECT person FROM cards ORDER BY id', function(err, result) {
 				    done();
+
 				    if(err) return console.error(err);
-				    var out = result.rows[0].person;
-				    out = JSON.parse(out);
-				    console.log(out.name);
-/*
- [
- 	{
- 		person:
- 			'{
- 				"name":"Michael Guida",
- 				"position":"Software Developer at CU Independent",
- 				"skills":"iOS Development, Android Development, JavaScript",
- 				"profile":"http://linkedin.com/in/mguida22",
- 				"email":"michael.guida@colorado.edu",
- 				"location":"Greater Denver Area",
- 				"image":"https://media.licdn.com/mpr/mprx/0_eOkdZa9Hh5eH_JO36ZBsZu5XG8RH7sO3EsKnZSXJj5fJKOdTX4NL9DKc2aU92g0DWjQcBoVQbht5"
- 			}'
- 	}
- ]
-*/
-				    console.log('DB:');
-				    //console.log(JSON.parse(out));
-				    console.log(result.rows);
+
+				    var data = result.rows[userId-1].person;
+				    ws.send(data);
 				});
 			} else {
 				console.log('invalid request');
@@ -80,15 +65,3 @@ wss.on("connection", function(ws) {
 		//clearInterval(id);
 	});
 });
-
-// ----------- Database -----------
-
-//gets the info from DB
-// pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-//   client.query('SELECT * FROM cards', function(err, result) {
-//     done();
-//     if(err) return console.error(err);
-//     console.log('DB:');
-//     console.log(result.rows);
-//   });
-// });
