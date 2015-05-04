@@ -1,10 +1,7 @@
-socket.on('event', function (data) {
-	//do something with data here 
-});
-
-//send stuff to server here
-//socket.emit('data', data;
-
+ws.onmessage = function (event) {
+	//display data from server
+	console.log(JSON.parse(event.data));
+};
 
 //Local storage of info
 var userInfo = {
@@ -91,5 +88,9 @@ function generateCard(){
 	document.getElementById("cardEmail").innerHTML = userInfo.email;
 	document.getElementById("cardLocation").innerHTML = userInfo.location;
 	document.getElementById("cardImage").innerHTML = "<img src=\"" + userInfo.image + "\" alt=\"card image\" style=\"float:right\">";
+}
+
+function shareCard(){
+
 }
 

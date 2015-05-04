@@ -2,7 +2,7 @@ var	express = require('express'),
 	http = require('http'),
 	app = express(),
 	server = http.createServer(app),
-	io = require('socket.io').listen(server),
+	WebSocketServer = require('ws').Server,
 	pg = require('pg'),
 	connected = false;
 
@@ -17,25 +17,24 @@ server.listen(app.get('port'), function(){
 	console.log("Express server listening on port " + server.address().port);
 });
 
-io.sockets.on('connection', function (socket) {
-	// notify when connected
-	console.log('socket.io connected');
-	connected = true;
+var wss = new WebSocketServer({server: server});
+console.log("websocket server created");
 
-	// notify when disconnected
-	socket.on('disconnect', function() {
-		console.log('socket.io disconnected');
-		connected = false;
-	});
+wss.on("connection", function(ws) {
+	//send timestamp every second
+	var id = setInterval(function() {
+		ws.send(JSON.stringify(new Date()), function() { });
+	}, 1000);
 
-	//send data to client
-	//socket.emit('event', data);
+	console.log("websocket connection open");
 
-	//recieving data from client
-	socket.on('data', function(data) {
-		//do something with data recieved
+	ws.on("close", function() {
+		console.log("websocket connection close");
+		clearInterval(id);
 	});
 });
+
+// ----------- Database -----------
 
 //gets the info from DB
 pg.connect(process.env.DATABASE_URL, function(err, client, done) {

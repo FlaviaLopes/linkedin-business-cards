@@ -5,10 +5,10 @@
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	    <script src="/socket.io/socket.io.js"></script>
 	    <script type="text/javascript">
 	    	// open a connection to the server:
-	    	var socket = io.connect();
+			var host = location.origin.replace(/^http/, 'ws')
+			var ws = new WebSocket(host);
 	    </script>
 	    <script src="app.js"></script>
 	    <script type="text/javascript" src="http://platform.linkedin.com/in.js">
@@ -28,7 +28,8 @@
 		      	<div class="col-sm-5">
 			      	<button type="button" class="btn btn-primary" onclick="logInUser();">Log In</button>
 			      	<button type="button" class="btn btn-info" onclick="getInfo();">Display Info</button>
-			      	<button type="button" class="btn btn-success" onclick="generateCard();">Generate Card</button>
+			      	<button type="button" class="btn btn-info" onclick="generateCard();">Generate Card</button>
+			      	<button type="button" class="btn btn-success" onclick="shareCard();">Share</button>
 			      	<div id="card" class="row">
 			      		<div class="col-sm-8">
 			      			<h4 id="cardName"></h4>
