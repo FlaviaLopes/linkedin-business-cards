@@ -19,14 +19,35 @@ server.listen(app.get('port'), function(){
 app.get('/user', function(request, response) {
 	userId = request.query.id;
 	console.log('id: ' + userId);
+	//getUser(userId);
 	response.redirect('/');
 });
-
 
 var wss = new WebSocketServer({server: server});
 console.log("websocket server created");
 
 wss.on("connection", function(ws) {
+
+	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+		if(err) return console.error(err);
+
+		if (userId == undefined){
+			console.log('no userId');
+		} else {
+			client.query('SELECT person FROM cards ORDER BY id', function(err, result) {
+			    done();
+
+			    if(err) return console.error(err);
+
+			    if (userId-1 > result.rowCount) {
+			    	console.log('invalid user id');
+			    } else {
+				    var data = result.rows[userId-1].person;
+				    ws.send(data);
+			    }
+			});
+		}
+	});
 
 	ws.on('message', function(message) {
 		console.log('client requested: ' + message);

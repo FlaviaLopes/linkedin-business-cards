@@ -6,7 +6,7 @@ ws.onmessage = function (event) {
 
 ws.onopen = function() {
 	//ws.send('getAll');
-    ws.send('getUser');
+    //ws.send('getUser');
 };
 
 //Local storage of info
@@ -104,7 +104,7 @@ function generateCard(data){
 function shareCard(){
 	saveToDB();
 	//make link to display....
-	
+	document.getElementById("link").innerHTML = link;
 }
 
 function saveToDB(){
