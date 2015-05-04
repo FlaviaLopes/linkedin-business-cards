@@ -1,7 +1,7 @@
 ws.onmessage = function (event) {
 	//display data from server
 	//console.log(JSON.parse(event.data));
-	generateCard(event.data);
+	displayFromDB(event.data);
 };
 
 ws.onopen = function() {
@@ -88,35 +88,38 @@ function saveData(){
 function generateCard(data){
 	saveData();
 
-	if (data == undefined){
-		//use local data
-		if (userInfo == undefined){
-			alert('Please enter data or load from LinkedIn');
-		} else {
-			document.getElementById("cardName").innerHTML = userInfo.name;
-			document.getElementById("cardPosition").innerHTML = userInfo.position;
-			document.getElementById("cardSkills").innerHTML = userInfo.skills;
-			document.getElementById("cardProfile").innerHTML = userInfo.profile;
-			document.getElementById("cardEmail").innerHTML = userInfo.email;
-			document.getElementById("cardLocation").innerHTML = userInfo.location;
-			document.getElementById("cardImage").innerHTML = "<img src=\"" + userInfo.image + "\" alt=\"card image\" style=\"float:right\">";
-		}
+	if (userInfo == undefined){
+		alert('Please enter data or load from LinkedIn');
 	} else {
-		//use data from db
-		data = JSON.parse(data);
-
-		document.getElementById("cardName").innerHTML = data.name;
-		document.getElementById("cardPosition").innerHTML = data.position;
-		document.getElementById("cardSkills").innerHTML = data.skills;
-		document.getElementById("cardProfile").innerHTML = data.profile;
-		document.getElementById("cardEmail").innerHTML = data.email;
-		document.getElementById("cardLocation").innerHTML = data.location;
-		document.getElementById("cardImage").innerHTML = "<img src=\"" + data.image + "\" alt=\"card image\" style=\"float:right\">";
+		document.getElementById("cardName").innerHTML = userInfo.name;
+		document.getElementById("cardPosition").innerHTML = userInfo.position;
+		document.getElementById("cardSkills").innerHTML = userInfo.skills;
+		document.getElementById("cardProfile").innerHTML = userInfo.profile;
+		document.getElementById("cardEmail").innerHTML = userInfo.email;
+		document.getElementById("cardLocation").innerHTML = userInfo.location;
+		document.getElementById("cardImage").innerHTML = "<img src=\"" + userInfo.image + "\" alt=\"card image\" style=\"float:right\">";
 	}
-	
 }
 
 function shareCard(){
-	//TODO: Save to db and generate link to share
+	saveToDB();
+	//make link to display....
+	
 }
 
+function saveToDB(){
+	var data = JSON.stringify(userInfo);
+	ws.send('saveUser '+ data);
+}
+
+function displayFromDB(data) {
+	data = JSON.parse(data);
+
+	document.getElementById("cardName").innerHTML = data.name;
+	document.getElementById("cardPosition").innerHTML = data.position;
+	document.getElementById("cardSkills").innerHTML = data.skills;
+	document.getElementById("cardProfile").innerHTML = data.profile;
+	document.getElementById("cardEmail").innerHTML = data.email;
+	document.getElementById("cardLocation").innerHTML = data.location;
+	document.getElementById("cardImage").innerHTML = "<img src=\"" + data.image + "\" alt=\"card image\" style=\"float:right\">";
+}
