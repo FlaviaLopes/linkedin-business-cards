@@ -3,6 +3,11 @@ ws.onmessage = function (event) {
 	console.log(JSON.parse(event.data));
 };
 
+ws.onopen = function() {
+	//ws.send('getAll');
+    ws.send('getUser 1');
+};
+
 //Local storage of info
 var userInfo = {
 	"name": undefined,
