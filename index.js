@@ -36,3 +36,20 @@ io.sockets.on('connection', function (socket) {
 		//do something with data recieved
 	});
 });
+
+//gets the info from DB
+pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+  client.query('SELECT * FROM cards', function(err, result) {
+    done();
+    if(err) return console.error(err);
+    console.log('DB:');
+    console.log(result.rows);
+  });
+});
+
+//TODO: update user info
+//if user does not exist then add user to database
+
+
+
+//TODO: get user info
