@@ -19,7 +19,6 @@ server.listen(app.get('port'), function(){
 app.get('/user', function(request, response) {
 	userId = request.query.id;
 	console.log('id: ' + userId);
-	//getUser(userId);
 	response.redirect('/');
 });
 
@@ -83,8 +82,6 @@ wss.on("connection", function(ws) {
 				var data = message.substring(9);
 				data = JSON.parse(data);
 
-				//client.on('drain', client.end.bind(client));
-
 				client.query('SELECT count(*) AS exact_count FROM cards', function(err, result) {
 					//done();
 
@@ -103,6 +100,17 @@ wss.on("connection", function(ws) {
 						if(err) return console.error(err);
 						console.log('successfuly added!');
 					});
+				});
+			} else if (message = 'getLink') {
+				client.query('SELECT count(*) AS exact_count FROM cards', function(err, result) {
+					done();
+
+					if(err) return console.error(err);
+
+					var link = 'user?id=';
+					link += parseInt(result.rows[0].exact_count, 10);
+
+					ws.send('link: ' + link);
 				});
 			} else {
 				console.log('invalid request');

@@ -1,14 +1,3 @@
-ws.onmessage = function (event) {
-	//display data from server
-	//console.log(JSON.parse(event.data));
-	displayFromDB(event.data);
-};
-
-ws.onopen = function() {
-	//ws.send('getAll');
-    //ws.send('getUser');
-};
-
 //Local storage of info
 var userInfo = {
 	"name": undefined,
@@ -18,6 +7,25 @@ var userInfo = {
 	"email": undefined,
 	"location": undefined,
 	"image": undefined
+};
+
+var link = undefined;
+
+ws.onmessage = function (event) {
+	//display data from server
+	//console.log(JSON.parse(event.data));
+	if (event.data.substring(0,4) == 'link'){
+		link = event.data.substring(5);
+		link = document.location.href+link;
+		link = link.replace(/\s/g,'');
+		document.getElementById("link").innerHTML = '<h5>Link: '+ link + '</h5>';
+	}
+	displayFromDB(event.data);
+};
+
+ws.onopen = function() {
+	//ws.send('getAll');
+    //ws.send('getUser');
 };
 
 function frameworkLoaded(){
@@ -102,18 +110,21 @@ function generateCard(data){
 }
 
 function shareCard(){
-	saveToDB();
-	//make link to display....
-	document.getElementById("link").innerHTML = link;
+	saveToDB(function(){
+		ws.send('getLink');	
+	});
 }
 
-function saveToDB(){
+function saveToDB(callback){
 	var data = JSON.stringify(userInfo);
 	ws.send('saveUser '+ data);
+	callback();
 }
 
 function displayFromDB(data) {
 	data = JSON.parse(data);
+
+	userInfo = data;
 
 	document.getElementById("cardName").innerHTML = data.name;
 	document.getElementById("cardPosition").innerHTML = data.position;
