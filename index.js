@@ -83,7 +83,6 @@ wss.on("connection", function(ws) {
 				data = JSON.parse(data);
 
 				client.query('SELECT count(*) AS exact_count FROM cards', function(err, result) {
-					//done();
 
 					if(err) return console.error(err);
 

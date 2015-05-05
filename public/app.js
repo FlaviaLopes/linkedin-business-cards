@@ -19,8 +19,9 @@ ws.onmessage = function (event) {
 		link = document.location.href+link;
 		link = link.replace(/\s/g,'');
 		document.getElementById("link").innerHTML = '<h5>Link: '+ link + '</h5>';
+	} else {
+		displayFromDB(event.data);
 	}
-	displayFromDB(event.data);
 };
 
 ws.onopen = function() {
